@@ -1,4 +1,4 @@
-FROM kasmweb/core:1.8.0
+FROM kasmweb/core:1.11.0
 USER root
 
 ENV HOME /home/kasm-default-profile
@@ -9,10 +9,8 @@ WORKDIR $HOME
 ######### Customize Container Here ###########
 
 
-# Install Firefox
-COPY ./src/ubuntu/install/firefox/ $INST_SCRIPTS/firefox/
-COPY ./src/ubuntu/install/firefox/firefox.desktop $HOME/Desktop/
-RUN bash $INST_SCRIPTS/firefox/install_firefox.sh && rm -rf $INST_SCRIPTS/firefox/
+# Install MultiMc
+RUN bash $INST_SCRIPTS/multimc/install.sh && rm -rf $INST_SCRIPTS/multimc/
 
 # Enabled Single Application Mode - No desktop environment will be spawned
 COPY ./src/common/install/kasm/xfce_settings/xfce4-desktop-single-app.xml $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
@@ -21,7 +19,7 @@ RUN apt-get remove -y xfce4-panel
 
 ENV LAUNCH_URL  http://kasmweb.com
 
-COPY ./src/ubuntu/install/firefox/custom_startup.sh $STARTUPDIR/custom_startup.sh
+COPY ./src/ubuntu/install/multimc/custom_startup.sh $STARTUPDIR/custom_startup.sh
 RUN chmod +x $STARTUPDIR/custom_startup.sh
 
 

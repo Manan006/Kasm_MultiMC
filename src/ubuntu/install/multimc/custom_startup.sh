@@ -6,7 +6,6 @@ if [ -n "$1" ] ; then
 else
     URL=$LAUNCH_URL
 fi
-
 if [ -n "$URL" ] && ( [ -z "$DISABLE_CUSTOM_STARTUP" ] ||  [ -n "$FORCE" ] ) ; then
     if [ -f /tmp/custom_startup.lck ] ; then
         echo "custom_startup already running!"
@@ -15,11 +14,11 @@ if [ -n "$URL" ] && ( [ -z "$DISABLE_CUSTOM_STARTUP" ] ||  [ -n "$FORCE" ] ) ; t
     touch /tmp/custom_startup.lck
     while true
     do
-        if ! pgrep -x chrome > /dev/null
+        if ! pgrep -x MultiMc > /dev/null
         then
             /usr/bin/filter_ready
             /usr/bin/desktop_ready
-            google-chrome --start-maximized $URL
+            MultiMc -width ${VNC_RESOLUTION/x*/} -height ${VNC_RESOLUTION/*x/} $URL
         fi
         sleep 1
     done
